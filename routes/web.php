@@ -19,6 +19,27 @@ use Illuminate\Support\Facades\Auth;
 // })->name('home.index');
 
 
+
+ Route::get('/', function () {
+     return view('home.index');
+ })->name('home.index');
+
+
+Route::get('/contact', function () {
+    return view('home.contact');
+})->name('home.contact');
+
+Route::get('/posts/{id}',function($id){
+return 'Blog Post  '.$id; 
+}
+)->name('posts.show');
+
+Route::get('/posts/{$days_ago?}',function($days_ago = 20){
+    return 'Blog Post days ago '.$days_ago; 
+    }
+)->name('posts.recent.index');
+
+
 $posts = [
     1 => [
         'title' => 'Intro to Laravel',
@@ -33,16 +54,6 @@ $posts = [
 ];
 
 
- Route::get('/', function () {
-     return view('home.index');
- })->name('home.index');
-
-
-Route::get('/contact', function () {
-    return view('home.contact');
-})->name('home.contact');
-
-
 Route::get('/posts', function () use ($posts)  {
     
     //dd(request()->all());
@@ -50,7 +61,7 @@ Route::get('/posts', function () use ($posts)  {
     //dd(request()->input('param',1));
 
     //only to param in url or query parameters
-    dd(request()->query('param',1));
+  //  dd(request()->query('param',1));
 
     return view('posts.index',['posts'=> $posts]);
    // return 'Blog Post '.$id;
@@ -124,10 +135,3 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
